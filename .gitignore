@@ -1,3 +1,8 @@
+# Custom to setup
+.DS_Store
+*.nosync/
+
+# Custom to project
 data/
 
 # Byte-compiled / optimized / DLL files

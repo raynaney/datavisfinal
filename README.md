@@ -20,6 +20,7 @@ Project to visualize wildfire spread.
    PROJECT_DIR=/path/to/root/of/project/ # the root directory of the project
    DATA_DIR=/path/to/root/of/project/data/ # the data directory
    ```
+   Don't forget to delete the comments ^
 
    To access these variables in python code run:
    ```python

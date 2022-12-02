@@ -1,10 +1,11 @@
 import pyvista as pv
 import sys
 import os
+from pathlib import Path
+from decouple import config
 
 
 def main(argv):
-    argv = sys.argv
     if len(argv) < 2:
         sys.stderr.write("Usage: %s <volume.vtk>\n" % argv[0])
         return 1
@@ -17,9 +18,14 @@ def main(argv):
 
     # mesh = pv.read(filename)
     mesh = pv.StructuredGrid(filename)
-    breakpoint()
     cpos = mesh.plot()
 
 
 if __name__ == "__main__":
-    main(sys.argv)
+    # main(sys.argv)
+    manual_argv = [
+        "pyvista_test.py",
+        Path(config("DATA_DIR"))
+        / "mountain_backcurve40/mountain_backcurve40.output.1000.vts",
+    ]
+    main(manual_argv)
