@@ -1,7 +1,10 @@
 import pyvista as pv
+import vtk
 import sys
 import os
 
+v = vtk.vtkVersion()
+version = v.GetVTKSourceVersion()
 
 def main(argv):
     argv = sys.argv
@@ -15,8 +18,31 @@ def main(argv):
         sys.stderr.write("file '%s' not found\n" % filename)
         return 1
 
-    # mesh = pv.read(filename)
-    mesh = pv.StructuredGrid(filename)
+    mesh = pv.StructuredGrid(filename) #read in file
+    mesh.set_active_scalars("O2") #get O2 scalar
+    smin, smax = mesh.GetScalarRange() #get scalar range
+    
+    # Create colour transfer table: mapping scalar value to colour
+    opacity_function = vtk.vtkPiecewiseFunction() #a function that creates a ramp
+    opacity_function.AddPoint(smin, 0.0) #add control points on that color ramp
+    opacity_function.AddPoint(smax, 0.2) #the maximum value is 20% opaque
+
+    # Create colour transfer table: mapping scalar value to colour
+    colour_function = vtk.vtkColorTransferFunction() #interpolates color values
+    colour_function.AddRGBPoint(smin, 0.0, 0.0, 0.0) #can do RGB space with minimum mapping
+    colour_function.AddRGBPoint(smax, 1.0, 1.0, 1.0) #maximum scalar value mapped
+
+    volume_property = vtk.vtkVolumeProperty() #connects the volume transfer function to color mapping
+    volume_property.SetColor(colour_function)
+    volume_property.SetScalarOpacity(opacity_function)
+    volume_property.ShadeOn() ;# adds shading, but will introduce artefacts (and CPU/GPU load)
+    volume_property.SetInterpolationTypeToLinear()
+    volume_mapper = vtk.vtkSmartVolumeMapper()
+    breakpoint()
+    volume_mapper.SetInputData(mesh) #error: The SetInput method of this mapper requires either a vtkImageData or a vtkRectilinearGrid as input
+    
+    print(smin, " : ", smax)
+    
     breakpoint()
     cpos = mesh.plot()
 
