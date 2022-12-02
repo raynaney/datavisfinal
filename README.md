@@ -3,7 +3,7 @@ Project to visualize wildfire spread.
 
 ## Installation
 1. Install the requirements [TODO: create requirements.txt / environment.yml]
-   - pip install pyvista python-decouple
+   - pip install pyvista python-decouple pyqt5 pyvistaqt
 
 2. Create a `/data` folder and download the `.vts` files from [here](https://wifire-data.sdsc.edu/data/SciVis2022/).
    Follow the online structure, e.g.:
