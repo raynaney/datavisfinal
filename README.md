@@ -13,7 +13,7 @@ Project to visualize wildfire spread.
        - [...].vts
      - mountain_backcurve80
        - [...].vts
-3. Create a =.env= file \\
+3. Create a `.env` file.
    A `.env` file is used to keep track of machine-specific variables. Create a
    `.env` in the root of this project with the following values set:
    ```bash
