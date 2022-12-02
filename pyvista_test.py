@@ -41,16 +41,16 @@ def main(argv):
     breakpoint()
     volume_mapper.SetInputData(mesh) #error: The SetInput method of this mapper requires either a vtkImageData or a vtkRectilinearGrid as input
     """
+    p = pv.Plotter()
 
+    """
     model = mesh
-
+    
     # contours for O2
     contours = model.contour(15, scalars='O2')
     contours.array_names
 
     contours['O2'] /= contours['O2'].max() #not sure what this line is actually doing
-
-    p = pv.Plotter()
 
     p.add_text('Opacity by Array')
     p.add_mesh(
@@ -60,8 +60,12 @@ def main(argv):
         opacity='O2', #this is not quite right either
         cmap='bwr',
     )
-
-    # contours for fire fuel
+    """
+    # opacity to represent oxygen levels
+    mesh.set_active_scalars("O2")
+    p.add_mesh(mesh, opacity="linear", use_transparency=True, cmap='bwr')
+    
+    # contour for fire fuel (which makes up the landscape)
     contours = mesh.contour(scalars = 'rhof_1')
     p.add_mesh(mesh.outline(), color="k")
     p.add_mesh(contours, opacity=0.25, clim=[0, 200])
