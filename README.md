@@ -19,8 +19,6 @@ Project to visualize wildfire spread.
    ```bash
    PROJECT_DIR=/path/to/root/of/project/ # the root directory of the project
    DATA_DIR=/path/to/root/of/project/data/ # the data directory
-   MODEL_DIR=/path/to/model/dir/ # the directory where the models (e.g. Stable Diffusion) are saved
-   IMG_DIR=/path/to/imgs/dir/ # the directory where generated images go
    ```
 
    To access these variables in python code run:
