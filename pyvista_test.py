@@ -50,7 +50,7 @@ def main(argv):
 
     contours['O2'] /= contours['O2'].max() #not sure what this line is actually doing
 
-    p = pv.Plotter(shape=(1, 2))
+    p = pv.Plotter()
 
     p.add_text('Opacity by Array')
     p.add_mesh(
