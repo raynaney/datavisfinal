@@ -43,32 +43,35 @@ def main(argv):
     """
     p = pv.Plotter()
 
-    """
+
     model = mesh
     
     # contours for O2
-    contours = model.contour(15, scalars='O2')
+    contours = model.contour(30, scalars='O2')
     contours.array_names
 
     contours['O2'] /= contours['O2'].max() #not sure what this line is actually doing
 
-    p.add_text('Opacity by Array')
+    p.add_text('O2 Represented by Countours')
     p.add_mesh(
         contours.copy(),
         use_transparency=True,
         scalars='O2',
-        opacity='O2', #this is not quite right either
+        opacity='linear', #this is not quite right either
         cmap='bwr',
     )
+
     """
     # opacity to represent oxygen levels
     # mesh.set_active_scalars("O2")
-    p.add_mesh(mesh, scalars = 'O2', opacity="linear", cmap='bwr')
+    p.add_mesh(mesh, scalars = 'O2',  opacity="linear", use_transparency=True, cmap='bwr')
+    """
     
     # contour for fire fuel (which makes up the landscape)
     contours = mesh.contour(scalars = 'rhof_1')
     p.add_mesh(mesh.outline(), color="k")
     p.add_mesh(contours, opacity=0.25, clim=[0, 200])
+    
 
     """
     # vectors to represent wind
