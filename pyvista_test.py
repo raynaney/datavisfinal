@@ -47,17 +47,17 @@ def main(argv):
     model = mesh
     
     # contours for O2
-    contours = model.contour(30, scalars='O2')
+    contours = model.contour(15, scalars='O2')
     contours.array_names
 
-    contours['O2'] /= contours['O2'].max() #not sure what this line is actually doing
+    #contours['O2'] /= contours['O2'].max() #not sure what this line is actually doing
 
     p.add_text('O2 Represented by Countours')
     p.add_mesh(
         contours.copy(),
         use_transparency=True,
         scalars='O2',
-        opacity='linear', #this is not quite right either
+        opacity='O2', #this is not quite right either
         cmap='bwr',
     )
 
@@ -70,16 +70,15 @@ def main(argv):
     # contour for fire fuel (which makes up the landscape)
     contours = mesh.contour(scalars = 'rhof_1')
     p.add_mesh(mesh.outline(), color="k")
-    p.add_mesh(contours, opacity=0.25, clim=[0, 200])
+    p.add_mesh(contours, opacity=0.25, clim=[0, 200]) #try smooth_shading=True
     
 
-    """
+    
     # vectors to represent wind
     mesh.set_active_scalars("u")
     arrows = mesh.glyph(tolerance=0.05)
     p.add_mesh(arrows, color="yellow")
-    p.add_mesh(mesh, scalars="u", cmap="terrain", smooth_shading=True)
-    """
+   
 
     """
     p.subplot(0, 1)
