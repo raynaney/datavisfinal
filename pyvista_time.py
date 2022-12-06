@@ -39,26 +39,73 @@ def get_args():
     return get_parser().parse_args()
 
 
-def plot_through_time(filenames):
-    global mesh
-    global plotter
+def set_contours(mesh):
+    global contours_o2
+    global contours_rhof
+    global wind_arrows
 
-    mesh = pv.StructuredGrid(filenames[0])
-    mesh.set_active_scalars("O2")
+    # mesh.set_active_scalars("O2")
+    contours_o2 = mesh.contour(3, scalars="O2")
+    contours_rhof = mesh.contour(scalars="rhof_1")
+
+    # Add arrows
+    wind_arrows = mesh.glyph(tolerance=0.05, factor=2.0)
+
+
+def update_contours(mesh_n):
+    global contours_o2
+    global contours_rhof
+    global wind_arrows
+
+    contours_o2.point_data["O2"] = mesh_n.contour(3, scalars="O2").point_data[
+        "O2"
+    ]
+    contours_rhof.point_data["rhof_1"] = mesh_n.contour(
+        scalars="rhof_1"
+    ).point_data["rhof_1"]
+    wind_arrows.point_data["u"] = mesh_n.glyph(
+        tolerance=0.05, factor=2.0
+    ).point_data["u"]
+
+
+def plot_through_time(filenames):
+    global plotter
+    global mesh
 
     plotter = pvqt.BackgroundPlotter()
+    mesh = pv.StructuredGrid(filenames[0])
+    mesh.set_active_scalars("u")
+
+    # plotter.add_mesh(mesh.outline())
+    # plotter.add_mesh(mesh.contour(3, scalars="O2"))
+    # set_contours(mesh)
+    # plotter.add_mesh(mesh.contour(3, scalars="O2"))
+
+    # plotter.add_mesh(
+    #     contours_o2,
+    #     use_transparency=True,
+    #     scalars="O2",
+    #     opacity="O2",  # this is not quite right either
+    #     cmap="bwr",
+    # )
+    # plotter.add_mesh(contours_rhof, opacity=0.25, clim=[0, 200])
+    # plotter.add_mesh(wind_arrows, color="yellow")
     plotter.add_mesh(mesh)
+
     plotter.show()
 
     thread = Thread(target=update_plot, args=(filenames[1:],))
     thread.start()
+    breakpoint()
 
 
 def update_plot(filenames):
     for file_t in filenames:
-        mesh_n = pv.StructuredGrid(file_t)
-        mesh.point_data["O2"] = mesh_n.point_data["O2"]
         time.sleep(1)
+        mesh_n = pv.StructuredGrid(file_t)
+
+        # Update points
+        mesh.point_data["O2"] = mesh_n.point_data["O2"]
 
 
 if __name__ == "__main__":
