@@ -70,13 +70,13 @@ def main(argv):
     p.add_mesh(mesh.outline(), color="k")
     p.add_mesh(contours, opacity=0.25, clim=[0, 200])
 
-"""
+    """
     # vectors to represent wind
     mesh.set_active_scalars("u")
     arrows = mesh.glyph(tolerance=0.05)
     p.add_mesh(arrows, color="yellow")
     p.add_mesh(mesh, scalars="u", cmap="terrain", smooth_shading=True)
-"""
+    """
 
     """
     p.subplot(0, 1)
