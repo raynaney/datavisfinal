@@ -63,7 +63,7 @@ def main(argv):
     """
     # opacity to represent oxygen levels
     # mesh.set_active_scalars("O2")
-    p.add_mesh(mesh, scalars = 'O2', opacity="sigmoid", use_transparency=True, cmap='bwr')
+    p.add_mesh(mesh, scalars = 'O2', opacity="linear", cmap='bwr')
     
     # contour for fire fuel (which makes up the landscape)
     contours = mesh.contour(scalars = 'rhof_1')
