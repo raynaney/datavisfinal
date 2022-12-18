@@ -1,6 +1,7 @@
 # state file generated using paraview version 5.10.1
 import time
 from pathlib import Path
+import sys
 
 # uncomment the following three lines to ensure this script works in future versions
 # import paraview
@@ -758,9 +759,9 @@ def render_and_save_file(inp_filename, outp_filename):
     print(f"\t render time: {executionTime}s")
 
 
-print("Animating views")
 if __name__ == "__main__":
     overwrite = False
+    single_run_mode = True  # only generate one file at execution
 
     drive_dir = Path(
         "/Users/lucweytingh/Documents/msc_ai/svvr/datavisfinal/data.nosync/"
@@ -771,9 +772,11 @@ if __name__ == "__main__":
         "mountain_headcurve320",
     ]
 
-    ts = range(5000, 70001, 1000)
+    ts = range(5000, 91001, 1000)
 
     for simulation in simulation_names:
+        if not single_run_mode:
+            print("Animating", simulation)
         src_dir = drive_dir / simulation
         out_dir = drive_dir / f"{simulation}_out"
         out_dir.mkdir(exist_ok=True)
@@ -782,12 +785,21 @@ if __name__ == "__main__":
             in_fname = src_dir / f"output.{t}.vts"
             out_fname = out_dir / f"t{t}.png"
             if not in_fname.is_file():
-                print(f"Src file '{in_fname}' does not exist")
+                if not single_run_mode:
+                    print(
+                        f"Src file '{in_fname.relative_to(drive_dir)}' does not exist"
+                    )
             elif out_fname.is_file() and overwrite is False:
-                print(f"Already generated step {i}/{len(ts)} (t={t})")
+                if not single_run_mode:
+                    print(f"Already generated step {i}/{len(ts)} (t={t})")
             else:
                 print(f"Generating step {i}/{len(ts)} (t={t})")
                 try:
                     render_and_save_file(str(in_fname), str(out_fname))
                 except:
-                    print(f"{out_fname} may be damaged")
+                    print(f"{out_fname.relative_to(drive_dir)} may be damaged")
+                    continue
+                if single_run_mode:
+                    sys.exit(0)
+    if single_run_mode:
+        sys.exit(1)
