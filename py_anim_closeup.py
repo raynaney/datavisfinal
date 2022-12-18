@@ -855,7 +855,7 @@ def render_and_save_file(inp_filename, outp_filename):
 print("Animating closeup views")
 if __name__ == "__main__":
 
-    overwrite = True
+    overwrite = False
 
     drive_dir = Path(
         "/Users/lucweytingh/Documents/msc_ai/svvr/datavisfinal/data.nosync/"
@@ -866,8 +866,8 @@ if __name__ == "__main__":
         "mountain_headcurve320",
     ]
 
-    # ts = range(5000, 70001, 1000)
-    ts = range(70000, 70001, 1000)
+    ts = range(5000, 70001, 1000)
+    # ts = range(70000, 70001, 1000)
 
     for simulation in simulation_names:
         src_dir = drive_dir / simulation
