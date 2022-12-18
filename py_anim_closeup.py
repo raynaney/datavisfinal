@@ -870,6 +870,8 @@ if __name__ == "__main__":
     # ts = range(70000, 70001, 1000)
 
     for simulation in simulation_names:
+        if not single_run_mode:
+            print("Animating", simulation)
         src_dir = drive_dir / simulation
         out_dir = drive_dir / f"{simulation}_closeup_out"
         out_dir.mkdir(exist_ok=True)
@@ -886,7 +888,10 @@ if __name__ == "__main__":
                 if not single_run_mode:
                     print(f"Already generated step {i}/{len(ts)} (t={t})")
             else:
-                print(f"Generating step {i}/{len(ts)} (t={t})")
+                print(
+                    f"Generating step {i}/{len(ts)} (t={t})"
+                    + (f" ({simulation})" if single_run_mode else "")
+                )
                 try:
                     render_and_save_file(str(in_fname), str(out_fname))
                 except:

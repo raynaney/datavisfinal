@@ -793,7 +793,10 @@ if __name__ == "__main__":
                 if not single_run_mode:
                     print(f"Already generated step {i}/{len(ts)} (t={t})")
             else:
-                print(f"Generating step {i}/{len(ts)} (t={t})")
+                print(
+                    f"Generating step {i}/{len(ts)} (t={t})"
+                    + (f" ({simulation})" if single_run_mode else "")
+                )
                 try:
                     render_and_save_file(str(in_fname), str(out_fname))
                 except:
