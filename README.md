@@ -38,8 +38,8 @@ This paper presents a visualization and analysis of vorticity-driven lateral spr
 4. Run `convert *.png animation.gif` from each of the output folders (found in the data directory) to create the animation.
 
 Note: memory usage is high for the generations. If memory issues occur, consider generating the animations as follows:
-1. Set `single_run_mode=True`{:.python} in `py_anim.py` and `py_anim_closeup.py` (at the bottom of the file).
-2. Run `chmod +x run_anim.sh`{:.bash} and `chmod +x run_anim_closeup.sh`{:.bash} to make the shell scripts executable.
+1. Set `single_run_mode=True` in `py_anim.py` and `py_anim_closeup.py` (at the bottom of the file).
+2. Run `chmod +x run_anim.sh` and `chmod +x run_anim_closeup.sh`{:.bash} to make the shell scripts executable.
 3. Double check the `pvpython` path in `run_anim.sh` and `run_anim_closeup.sh`, it should point to your `pvpython` executable.
 4. Run `./run_anim.sh` and `./run_anim_closeup.sh` to generate the overview and closeup visualization frames.
 5. Run `convert *.png animation.gif` from each of the output folders (found in the data directory) to create the animation.
