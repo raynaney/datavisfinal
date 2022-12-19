@@ -1,7 +1,8 @@
 # state file generated using paraview version 5.10.1
 import time
-from pathlib import Path
 import sys
+from pathlib import Path
+from decouple import config
 
 # uncomment the following three lines to ensure this script works in future versions
 # import paraview
@@ -761,15 +762,16 @@ def render_and_save_file(inp_filename, outp_filename):
 
 if __name__ == "__main__":
     overwrite = False
-    single_run_mode = True  # only generate one file at execution
+    single_run_mode = False  # only generate one file at execution
 
-    drive_dir = Path(
-        "/Users/lucweytingh/Documents/msc_ai/svvr/datavisfinal/data.nosync/"
-    )
+    drive_dir = Path(config("DATA_DIR"))
     simulation_names = [
         "mountain_headcurve40",
         "mountain_headcurve80",
         "mountain_headcurve320",
+        "mountain_backcurve40",
+        "mountain_backcurve80",
+        "mountain_backcurve320",
     ]
 
     ts = range(5000, 91001, 1000)

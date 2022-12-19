@@ -1,32 +1,46 @@
-# DataVis Final
-Project to visualize wildfire spread.
+# SciVis wildfire visualization of VLS
+This paper presents a visualization and analysis of vorticity-driven lateral spread (VLS) in wildfire scenarios. The purpose of the study is to understand and evaluate the underlying mechanisms of VLS in wildfires, and to determine how visualizations of VLS simulations can inform decision-making in the field. We analyze the influence of VLS on wildfires in simulated environments with varying topological characteristics and study the effect of VLS on the spread of wildfires. The visualizations and analysis tools developed in this work are intended to help firefighters make more informed decisions in the field.
 
 ## Installation
-1. Install the requirements [TODO: create requirements.txt / environment.yml]
-   - pip install pyvista python-decouple pyqt5 pyvistaqt
-
-2. Create a `/data` folder and download the `.vts` files from [here](https://wifire-data.sdsc.edu/data/SciVis2022/).
+1. Install ParaView.
+2. Create a `/data` folder and download the `.vts` files from [here](https://oceans11.lanl.gov/firetec/).
    Follow the online structure, e.g.:
    - data
      - mountain_backcurve40
-       - mountain_backcurve40.output.1000.vts
-       - [...].vts
+       - output.1000.vts
+       - output.2000.vts
+       - [...]
      - mountain_backcurve80
-       - [...].vts
-3. Create a `.env` file.
-   A `.env` file is used to keep track of machine-specific variables. Create a
-   `.env` in the root of this project with the following values set:
-   ```bash
-   PROJECT_DIR=/path/to/root/of/project/ # the root directory of the project
-   DATA_DIR=/path/to/root/of/project/data/ # the data directory
-   ```
-   Don't forget to delete the comments ^
+       - output.1000.vts
+       - output.2000.vts
+       - [...]
+     - [...]
+3. Install python-decouple and create a `.env` file.
+   - `pip install python-decouple`
+   - A `.env` file is used to keep track of machine-specific variables. Create a
+     `.env` in the root of this project with the following values set:
+     ```bash
+     DATA_DIR=/path/to/root/of/project/data/
+     ```
+   - To access these variables in python code run:
+     ```python
+     from decouple import config
+     config("DATA_DIR")
+     ```
+## Running
+1. Locate the `pvpython` executable
+   - Navigate to ParaView in Applications, right click and show contents.
+   - Locate the executable and copy the path, e.g. `/Applications/ParaView-<VERSION>.app/Contents/bin/pvpython`.
+2. Run `/Applications/ParaView-<VERSION>.app/Contents/bin/pvpython py_anim.py` to generate the overview animation frames.
+3. Run `/Applications/ParaView-<VERSION>.app/Contents/bin/pvpython py_anim_closeup.py` to generate the close-up animation frames.
+4. Run `convert *.png animation.gif` from each of the output folders (found in the data directory) to create the animation.
 
-   To access these variables in python code run:
-   ```python
-   from decouple import config
-   config("PROJECT_DIR")
-   ```
+Note: memory usage is high for the generations. If memory issues occur, consider generating the animations as follows:
+1. Set `single_run_mode=True`{:.python} in `py_anim.py` and `py_anim_closeup.py` (at the bottom of the file).
+2. Run `chmod +x run_anim.sh`{:.bash} and `chmod +x run_anim_closeup.sh`{:.bash} to make the shell scripts executable.
+3. Run `./run_anim.sh` and `./run_anim_closeup.sh` to generate the overview and closeup visualization frames.
+4. Run `convert *.png animation.gif` from each of the output folders (found in the data directory) to create the animation.
+
 ## The data
 Explanation of the data from the IEEE 2022 SciVis Contest:
 

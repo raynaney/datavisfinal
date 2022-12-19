@@ -2,6 +2,7 @@
 import time
 import sys
 from pathlib import Path
+from decouple import config
 
 # uncomment the following three lines to ensure this script works in future versions
 # import paraview
@@ -855,20 +856,19 @@ def render_and_save_file(inp_filename, outp_filename):
 
 if __name__ == "__main__":
     overwrite = False
-    single_run_mode = True
+    single_run_mode = False
 
-    drive_dir = Path(
-        "/Users/lucweytingh/Documents/msc_ai/svvr/datavisfinal/data.nosync/"
-    )
+    drive_dir = Path(config("DATA_DIR"))
     simulation_names = [
         "mountain_headcurve40",
         "mountain_headcurve80",
         "mountain_headcurve320",
+        "mountain_backcurve40",
+        "mountain_backcurve80",
+        "mountain_backcurve320",
     ]
 
-    # ts = range(5000, 91001, 1000)
-    ts = [8000, 18000]
-    # ts = range(70000, 70001, 1000)
+    ts = range(5000, 91001, 1000)
 
     for simulation in simulation_names:
         if not single_run_mode:
