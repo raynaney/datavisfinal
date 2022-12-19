@@ -1,6 +1,8 @@
 # SciVis wildfire visualization of VLS
 This paper presents a visualization and analysis of vorticity-driven lateral spread (VLS) in wildfire scenarios. The purpose of the study is to understand and evaluate the underlying mechanisms of VLS in wildfires, and to determine how visualizations of VLS simulations can inform decision-making in the field. We analyze the influence of VLS on wildfires in simulated environments with varying topological characteristics and study the effect of VLS on the spread of wildfires. The visualizations and analysis tools developed in this work are intended to help firefighters make more informed decisions in the field.
 
+![Headfire visualization](animations/mountain_headcurve40.gif)
+
 ## Installation
 1. Install ParaView.
 2. Create a `/data` folder and download the `.vts` files from [here](https://oceans11.lanl.gov/firetec/).
