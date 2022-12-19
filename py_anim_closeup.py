@@ -866,7 +866,8 @@ if __name__ == "__main__":
         "mountain_headcurve320",
     ]
 
-    ts = range(5000, 91001, 1000)
+    # ts = range(5000, 91001, 1000)
+    ts = [8000, 18000]
     # ts = range(70000, 70001, 1000)
 
     for simulation in simulation_names:
@@ -899,5 +900,5 @@ if __name__ == "__main__":
                     continue
                 if single_run_mode:
                     sys.exit(0)
-        if single_run_mode:
-            sys.exit(1)
+    if single_run_mode:
+        sys.exit(1)
